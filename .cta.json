@@ -1,0 +1,16 @@
+{
+  "projectName": "telegram-qr-client",
+  "mode": "file-router",
+  "typescript": true,
+  "packageManager": "npm",
+  "tailwind": true,
+  "addOnOptions": {},
+  "git": true,
+  "version": 1,
+  "framework": "react-cra",
+  "chosenAddOns": [
+    "eslint",
+    "t3env",
+    "tanstack-query"
+  ]
+}
