@@ -1,15 +1,356 @@
-@import "tailwindcss";
-
-body {
-  @apply m-0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+body {
+  background: #f1f1f1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+  color: #222222;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #212121;
+    color: #e8e8e8;
+  }
+}
+
+/* ── Layout ── */
+
+.tg-root {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.tg-card {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 16px 32px;
+}
+
+/* ── QR ── */
+
+.tg-qr-wrap {
+  margin-bottom: 28px;
+}
+
+.tg-qr-frame {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+  padding: 10px;
+  display: inline-flex;
+  transition: opacity 0.3s;
+}
+
+.tg-qr-frame.scanned {
+  opacity: 0.3;
+}
+
+.tg-qr-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tg-qr-check {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #2481cc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tg-qr-skeleton {
+  width: 240px;
+  height: 240px;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #e5e5e5 25%, #d5d5d5 50%, #e5e5e5 75%);
+  background-size: 200% 100%;
+  animation: tg-shimmer 1.4s infinite;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tg-qr-skeleton {
+    background: linear-gradient(90deg, #2e2e2e 25%, #363636 50%, #2e2e2e 75%);
+    background-size: 200% 100%;
+  }
+}
+
+@keyframes tg-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ── Typography ── */
+
+.tg-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tg-title {
+    color: #ffffff;
+  }
+}
+
+.tg-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #707070;
+  margin-bottom: 24px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tg-body {
+    color: #aaaaaa;
+  }
+}
+
+/* ── Steps ── */
+
+.tg-steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+  text-align: left;
+  width: 100%;
+  max-width: 280px;
+}
+
+.tg-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: #333333;
+  line-height: 1.5;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tg-steps li {
+    color: #cccccc;
+  }
+}
+
+.tg-steps li strong {
+  font-weight: 600;
+  color: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tg-steps li strong {
+    color: #ffffff;
+  }
+}
+
+.tg-step-num {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #2481cc;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+/* ── Link button ── */
+
+.tg-link-btn {
+  background: none;
+  border: none;
+  color: #2481cc;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: opacity 0.15s;
+  margin-top: 8px;
+}
+
+.tg-link-btn:hover {
+  opacity: 0.75;
+}
+
+/* ── 2FA ── */
+
+.tg-2fa-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.tg-2fa-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(36, 129, 204, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tg-field-wrap {
+  width: 100%;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tg-field {
+  width: 100%;
+  padding: 11px 14px;
+  background: #ffffff;
+  border: 1.5px solid #d9d9d9;
+  border-radius: 10px;
+  color: #222222;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tg-field {
+    background: #2c2c2c;
+    border-color: #444444;
+    color: #e8e8e8;
+  }
+
+  .tg-field::placeholder {
+    color: #666666;
+  }
+}
+
+.tg-field:focus {
+  border-color: #2481cc;
+}
+
+.tg-field--error {
+  border-color: #e53935 !important;
+}
+
+.tg-field-error {
+  font-size: 12px;
+  color: #e53935;
+  text-align: left;
+  padding-left: 2px;
+}
+
+/* ── Button ── */
+
+.tg-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #2481cc;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.tg-btn:hover:not(:disabled) {
+  background: #1e6eaf;
+}
+
+.tg-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.tg-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Success ── */
+
+.tg-success-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tg-success-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #2481cc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tg-mono {
+  font-family: monospace;
+  font-size: 13px;
+  color: #2481cc;
+}
+
+/* ── Spinner ── */
+
+.tg-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: tg-spin 0.7s linear infinite;
+}
+
+@keyframes tg-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
